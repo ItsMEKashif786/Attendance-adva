@@ -682,7 +682,7 @@
                     <input type="text" id="studentName" required placeholder="e.g. Muhammad Ali">
                 </div>
                 <div class="form-group">
-                    <label for="studentPhone">Phone Number (with country code)</label>
+                    <label for="studentPhone">Phone Number (optional)</label>
                     <input type="tel" id="studentPhone" placeholder="e.g. +911234567890">
                     <small style="color: var(--text-light); font-size: 12px;">Include country code (e.g. +91 for India)</small>
                 </div>
@@ -1023,7 +1023,7 @@
                 }
                 
                 if (student.phone) {
-                    const message = encodeURIComponent(`${student.name} is ${attendanceRecord ? attendanceRecord.status : 'Hazir'} on ${formatDate(currentDate)} - ${course.name}`);
+                    const message = encodeURIComponent(`${student.name} is ${attendanceRecord ? attendanceRecord.status : 'Hazir'} on ${formatDate(currentDate)} - ${course.name} - Madrasatulmadina Balighan Attendance `);
                     contactHtml = `
                         <div class="contact-icons">
                             <a href="tel:${student.phone}" title="Call ${student.name}">
