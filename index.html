@@ -573,6 +573,10 @@
             to { transform: rotate(360deg); }
         }
     </style>
+    <!-- PWA Configuration -->
+<meta name="theme-color" content="#4caf50">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
     <div class="container">
@@ -699,6 +703,58 @@
     </div>
 
     <script>
+
+        // Add this at the end of your existing script, before the closing 
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful');
+      })
+      .catch(err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+// PWA Installation Prompt
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+  // Show install button (you'll need to add this to your HTML)
+  const installButton = document.createElement('button');
+  installButton.id = 'install-button';
+  installButton.className = 'btn';
+  installButton.textContent = 'Install App';
+  installButton.style.margin = '10px';
+  document.querySelector('h1').insertAdjacentElement('afterend', installButton);
+  
+  installButton.addEventListener('click', () => {
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    });
+  });
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('PWA was installed');
+  const installButton = document.getElementById('install-button');
+  if (installButton) {
+    installButton.style.display = 'none';
+  }
+});
         // Data structure
         let data = {
             courses: [],
