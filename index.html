@@ -1,1373 +1,3955 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Madrasatulmadina Balighan Attendance</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
+
         :root {
-            --primary: #2e7d32;
-            --primary-light: #4caf50;
-            --primary-dark: #1b5e20;
-            --secondary: #ffffff;
-            --text: #333333;
-            --text-light: #666666;
-            --text-lighter: #999999;
-            --border: #e0e0e0;
-            --hazir: #388e3c;
-            --gayib: #d32f2f;
-            --card-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
-            --hover-shadow: 0 6px 16px rgba(46, 125, 50, 0.15);
-            --radius: 8px;
-            --spacing: 24px;
-            --spacing-sm: 16px;
-            --spacing-xs: 12px;
+
+            --primary: #388e3c; /* Slightly darker green */
+
+            --primary-light: #66bb6a; /* Lighter green */
+
+            --primary-dark: #2e7d32; /* Dark green */
+
+            --secondary: #ffffff; /* White */
+
+            --text: #424242; /* Dark grey text */
+
+            --text-light: #757575; /* Medium grey text */
+
+            --text-lighter: #bdbdbd; /* Light grey text */
+
+            --border: #e0e0e0; /* Light grey border */
+
+            --hazir: #4caf50; /* Green for present */
+
+            --gayib: #e57373; /* Light red for absent */
+
+            --warning: #ffb74d; /* Light orange for warning */
+
+            --danger: #f44336; /* Red for danger */
+
+            --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
+
+            --hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* More pronounced hover shadow */
+
+            --radius: 10px; /* Slightly more rounded corners */
+
+            --spacing: 32px; /* Increased main spacing */
+
+            --spacing-sm: 20px; /* Increased small spacing */
+
+            --spacing-xs: 12px; /* Small spacing */
+
+            --transition-duration: 0.3s;
+
+            --transition-timing-function: ease-in-out;
+
         }
+
+
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
             font-family: 'Poppins', sans-serif;
+
         }
+
+
 
         body {
-            background-color: #f9f9f9;
+
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9); /* Light green gradient */
+
             color: var(--text);
+
             line-height: 1.6;
+
+            min-height: 100vh; /* Ensure gradient covers full viewport */
+
+            padding: var(--spacing) 0; /* Add vertical padding */
+
         }
+
+
 
         .container {
+
             max-width: 1200px;
+
             margin: 0 auto;
+
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent white */
+
+            border-radius: var(--radius);
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Stronger container shadow */
+
             padding: var(--spacing);
+
         }
+
+
 
         header {
+
             text-align: center;
-            margin-bottom: var(--spacing);
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--border);
+
+            margin-bottom: var(--spacing-sm);
+
+            padding-bottom: var(--spacing-xs);
+
         }
+
+
 
         h1 {
-            font-size: 32px;
-            font-weight: 600;
+
+            font-size: 36px; /* Larger heading */
+
+            font-weight: 700; /* Bold */
+
             color: var(--primary-dark);
+
             margin-bottom: var(--spacing-xs);
+
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
+
         }
+
+
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
+
+            font-size: 32px; /* Larger logo */
+
+            font-weight: 800; /* Extra bold */
+
             color: var(--primary);
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            gap: 10px;
-            margin-bottom: var(--spacing-sm);
+
+            gap: 12px; /* Increased gap */
+
+            margin-bottom: var(--spacing-xs);
+
         }
+
+
 
         .logo i {
-            font-size: 28px;
+
+            font-size: 36px; /* Larger icon */
+
+            color: var(--primary-dark); /* Darker icon color */
+
         }
+
+
 
         .tabs {
+
             display: flex;
-            margin-bottom: var(--spacing);
+
+            margin-bottom: var(--spacing-sm);
+
             background-color: var(--secondary);
+
             border-radius: var(--radius);
+
             box-shadow: var(--card-shadow);
+
             overflow: hidden;
+
         }
+
+
 
         .tab {
+
             padding: var(--spacing-sm) var(--spacing);
+
             cursor: pointer;
+
             background-color: var(--secondary);
+
             border: none;
+
             font-weight: 500;
+
             color: var(--text-light);
-            transition: all 0.3s ease;
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
             position: relative;
+
             flex: 1;
+
             text-align: center;
+
+            font-size: 16px;
+
         }
+
+
 
         .tab.active {
-            color: var(--primary);
+
+            color: var(--primary-dark);
+
             font-weight: 600;
+
         }
+
+
 
         .tab.active::after {
+
             content: '';
+
             position: absolute;
+
             bottom: 0;
+
             left: 0;
+
             width: 100%;
-            height: 3px;
+
+            height: 4px; /* Thicker indicator */
+
             background-color: var(--primary);
+
+            animation: slideIn 0.3s ease-out; /* Slide in animation */
+
         }
+
+
+
+        @keyframes slideIn {
+
+            from { transform: scaleX(0); }
+
+            to { transform: scaleX(1); }
+
+        }
+
+
 
         .tab:hover:not(.active) {
+
             color: var(--primary-light);
+
         }
+
+
 
         .tab-content {
+
             display: none;
+
             background-color: var(--secondary);
+
             border-radius: var(--radius);
+
             padding: var(--spacing);
+
             box-shadow: var(--card-shadow);
+
+            animation: fadeIn var(--transition-duration) var(--transition-timing-function);
+
         }
+
+
 
         .tab-content.active {
+
             display: block;
-            animation: fadeIn 0.3s ease;
+
         }
+
+
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+
+            from { opacity: 0; transform: translateY(15px); } /* Slightly more movement */
+
             to { opacity: 1; transform: translateY(0); }
+
         }
+
+
 
         .section-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-bottom: var(--spacing);
+
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+
+            gap: var(--spacing-sm); /* Add gap for wrapping */
+
         }
+
+
 
         .section-title {
-            font-size: 24px;
-            font-weight: 600;
+
+            font-size: 28px; /* Larger section title */
+
+            font-weight: 700; /* Bold */
+
             color: var(--primary-dark);
+
         }
+
+
 
         .btn {
-            padding: var(--spacing-xs) var(--spacing-sm);
+
+            padding: 12px 20px; /* Increased padding */
+
             background-color: var(--primary);
+
             color: var(--secondary);
+
             border: none;
-            border-radius: var(--radius);
+
+            border-radius: 25px; /* More rounded pills */
+
             cursor: pointer;
+
             font-weight: 500;
-            transition: all 0.3s ease;
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
-            font-size: 14px;
+
+            font-size: 15px;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+
         }
+
+
 
         .btn:hover {
+
             background-color: var(--primary-dark);
-            box-shadow: var(--hover-shadow);
-            transform: translateY(-2px);
+
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger hover shadow */
+
+            transform: translateY(-2px); /* Lift effect */
+
         }
+
+
 
         .btn-secondary {
+
             background-color: var(--secondary);
-            color: var(--primary);
-            border: 1px solid var(--primary);
+
+            color: var(--primary-dark);
+
+            border: 1px solid var(--primary-light);
+
+            box-shadow: none; /* No shadow for secondary */
+
         }
+
+
 
         .btn-secondary:hover {
-            background-color: rgba(46, 125, 50, 0.05);
+
+            background-color: var(--primary-light);
+
+            color: var(--secondary);
+
+            border-color: var(--primary-light);
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+
         }
+
+
 
         .btn-hazir {
+
             background-color: var(--hazir);
+
         }
+
+
 
         .btn-hazir:hover {
-            background-color: #2e7d32;
+
+            background-color: #388e3c; /* Darker green */
+
         }
+
+
 
         .btn-gayib {
+
             background-color: var(--gayib);
+
         }
+
+
 
         .btn-gayib:hover {
-            background-color: #b71c1c;
+
+            background-color: #d32f2f; /* Darker red */
+
         }
+
+
+
+        .btn-warning {
+
+            background-color: var(--warning);
+
+        }
+
+
+
+        .btn-warning:hover {
+
+            background-color: #f57c00; /* Darker orange */
+
+        }
+
+
+
+        .btn-danger {
+
+            background-color: var(--danger);
+
+        }
+
+
+
+        .btn-danger:hover {
+
+            background-color: #d32f2f; /* Darker red */
+
+        }
+
+
+
+        .btn:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+
+        }
+
+
 
         .card {
+
             background-color: var(--secondary);
+
             padding: var(--spacing-sm);
+
             margin-bottom: var(--spacing-sm);
+
             border-radius: var(--radius);
+
             box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
         }
+
+
 
         .card:hover {
-            transform: translateY(-3px);
+
+            transform: translateY(-4px); /* More prominent lift */
+
             box-shadow: var(--hover-shadow);
+
         }
+
+
 
         .course-card {
+
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
+
             color: var(--secondary);
+
             cursor: pointer;
+
             position: relative;
+
             overflow: hidden;
+
+            padding: var(--spacing-sm) var(--spacing); /* Adjusted padding */
+
         }
+
+
 
         .course-card::before {
+
             content: '';
+
             position: absolute;
+
             top: -50%;
+
             right: -50%;
+
             width: 100%;
+
             height: 200%;
-            background: rgba(255, 255, 255, 0.1);
+
+            background: rgba(255, 255, 255, 0.15); /* Slightly more visible shine */
+
             transform: rotate(30deg);
+
+            transition: transform 0.5s ease-out; /* Smooth transition for shine */
+
         }
+
+
 
         .course-card:hover::before {
-            animation: shine 1.5s infinite;
+
+             transform: translateX(100%) rotate(30deg); /* Slide shine across */
+
+             animation: none; /* Remove infinite animation on hover */
+
         }
+
+
+
+         .course-card:not(:hover)::before {
+
+            animation: shine 2s infinite; /* Keep infinite animation when not hovered */
+
+         }
+
+
+
+
 
         @keyframes shine {
+
             0% { transform: translateX(-100%) rotate(30deg); }
+
             100% { transform: translateX(100%) rotate(30deg); }
+
         }
+
+
 
         .course-card h3 {
-            font-size: 18px;
-            margin-bottom: 4px;
-            font-weight: 600;
+
+            font-size: 20px; /* Larger heading */
+
+            margin-bottom: 6px;
+
+            font-weight: 700;
+
             position: relative;
+
         }
+
+
 
         .course-card p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
+
+            color: rgba(255, 255, 255, 0.95);
+
+            font-size: 15px; /* Slightly larger paragraph */
+
             position: relative;
+
         }
+
+
+
+        .course-actions {
+
+            position: absolute;
+
+            top: 12px; /* Adjusted position */
+
+            right: 12px; /* Adjusted position */
+
+            display: flex;
+
+            gap: 10px; /* Increased gap */
+
+            z-index: 1;
+
+        }
+
+
+
+        .course-actions .btn {
+
+            padding: 8px 12px; /* Smaller padding */
+
+            font-size: 13px; /* Smaller font size */
+
+            border-radius: 20px; /* More rounded */
+
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+
+            color: var(--secondary);
+
+            box-shadow: none;
+
+            transition: background-color 0.3s ease, transform 0.3s ease;
+
+        }
+
+
+
+         .course-actions .btn:hover {
+
+            background-color: rgba(255, 255, 255, 0.4); /* More opaque on hover */
+
+            transform: scale(1.1); /* Slight scale effect */
+
+             box-shadow: none;
+
+         }
+
+
+
+
 
         .student-card {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            padding: var(--spacing-sm);
+
+            padding: var(--spacing-sm) var(--spacing); /* Adjusted padding */
+
+            position: relative;
+
+            border-bottom: 1px solid #f0f0f0; /* Lighter border bottom */
+
+            transition: background-color var(--transition-duration) var(--transition-timing-function);
+
         }
+
+
+
+         .student-card:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+
+        .student-card:hover {
+
+             background-color: #f5f5f5; /* Light grey background on hover */
+
+        }
+
+
+
+
 
         .student-info {
+
             flex: 1;
+
+            margin-right: var(--spacing-sm);
+
         }
+
+
 
         .student-info h4 {
-            font-size: 16px;
+
+            font-size: 18px; /* Larger student name */
+
             margin-bottom: 4px;
-            font-weight: 500;
+
+            font-weight: 600;
+
+            color: var(--text);
+
         }
+
+
 
         .student-phone {
-            font-size: 14px;
+
+            font-size: 14px; /* Slightly larger phone number */
+
             color: var(--text-light);
+
         }
+
+
 
         .student-actions {
+
             display: flex;
+
             gap: var(--spacing-xs);
+
             align-items: center;
+
+            flex-shrink: 0;
+
         }
+
+
+
+        .student-edit-actions {
+
+            position: absolute;
+
+            top: 10px; /* Adjusted position */
+
+            right: 10px; /* Adjusted position */
+
+            display: flex;
+
+            gap: 8px; /* Increased gap */
+
+            background-color: rgba(255, 255, 255, 0.9); /* More opaque background */
+
+            border-radius: var(--radius);
+
+            padding: 6px; /* Increased padding */
+
+            box-shadow: var(--card-shadow);
+
+            opacity: 0;
+
+            transition: opacity var(--transition-duration) var(--transition-timing-function);
+
+        }
+
+
+
+        .student-card:hover .student-edit-actions {
+
+             opacity: 1;
+
+        }
+
+
+
+
+
+        .student-edit-actions .btn {
+
+            padding: 6px 10px; /* Adjusted padding */
+
+            font-size: 12px; /* Adjusted font size */
+
+             border-radius: 15px; /* More rounded */
+
+             box-shadow: none;
+
+        }
+
+
+
+         .student-edit-actions .btn:hover {
+
+             transform: scale(1.1); /* Slight scale effect */
+
+             box-shadow: none;
+
+         }
+
+
+
+
 
         .attendance-status {
-            font-size: 14px;
+
+            font-size: 15px; /* Slightly larger status text */
+
+            font-weight: 600;
+
             margin-right: var(--spacing-xs);
-            font-weight: 500;
+
         }
+
+
 
         .hazir-status {
+
             color: var(--hazir);
+
         }
+
+
 
         .gayib-status {
-            color: var(--gayib);
+
+            color: var(--danger);
+
         }
+
+
 
         .contact-icons {
+
             display: flex;
+
             gap: var(--spacing-xs);
+
         }
+
+
 
         .contact-icons a {
-            color: var(--primary);
-            font-size: 18px;
-            transition: all 0.3s ease;
-            width: 36px;
-            height: 36px;
+
+            color: var(--primary-dark); /* Dark primary color */
+
+            font-size: 20px; /* Larger icons */
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
+            width: 40px; /* Larger touch target */
+
+            height: 40px;
+
             border-radius: 50%;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            background-color: rgba(46, 125, 50, 0.1);
+
+            background-color: rgba(56, 139, 60, 0.1); /* Primary color with opacity */
+
         }
+
+
 
         .contact-icons a:hover {
+
             color: var(--secondary);
+
             background-color: var(--primary);
+
             transform: scale(1.1);
+
         }
+
+
 
         .modal {
+
             display: none;
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             width: 100%;
+
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+
+            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+
             z-index: 1000;
+
             justify-content: center;
+
             align-items: center;
-            backdrop-filter: blur(4px);
+
+            backdrop-filter: blur(6px); /* Stronger blur */
+
         }
+
+
 
         .modal-content {
+
             background-color: var(--secondary);
+
             padding: var(--spacing);
+
             border-radius: var(--radius);
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: modalFadeIn 0.3s ease;
+
+            width: 95%; /* Wider modal on larger screens */
+
+            max-width: 550px; /* Increased max width */
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Stronger modal shadow */
+
+            animation: modalFadeIn var(--transition-duration) var(--transition-timing-function);
+
         }
+
+
 
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+
+            from { opacity: 0; transform: translateY(-30px); } /* More movement */
+
             to { opacity: 1; transform: translateY(0); }
+
         }
+
+
 
         .modal-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
-            margin-bottom: var(--spacing);
+
+            margin-bottom: var(--spacing-sm);
+
             padding-bottom: var(--spacing-xs);
+
             border-bottom: 1px solid var(--border);
+
         }
+
+
 
         .modal-header h2 {
-            font-size: 20px;
+
+            font-size: 24px; /* Larger modal title */
+
             color: var(--primary-dark);
-            font-weight: 600;
+
+            font-weight: 700;
+
         }
+
+
 
         .close-btn {
-            font-size: 24px;
+
+            font-size: 28px; /* Larger close button */
+
             cursor: pointer;
+
             background: none;
+
             border: none;
+
             color: var(--text-light);
-            transition: all 0.3s ease;
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
         }
+
+
 
         .close-btn:hover {
-            color: var(--primary);
+
+            color: var(--danger);
+
             transform: rotate(90deg);
+
         }
+
+
 
         .form-group {
+
             margin-bottom: var(--spacing-sm);
+
         }
+
+
 
         .form-group label {
+
             display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
+
+            margin-bottom: 8px; /* Increased margin */
+
+            font-weight: 600;
+
             color: var(--text);
+
             font-size: 14px;
+
         }
+
+
 
         .form-group input, .form-group select {
+
             width: 100%;
-            padding: 10px 12px;
+
+            padding: 14px 16px; /* Increased padding */
+
             border: 1px solid var(--border);
+
             border-radius: var(--radius);
-            font-size: 14px;
-            transition: all 0.3s ease;
+
+            font-size: 16px; /* Larger font size */
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Stronger inner shadow */
+
         }
+
+
 
         .form-group input:focus, .form-group select:focus {
+
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+
+            border-color: var(--primary-light);
+
+            box-shadow: 0 0 0 4px rgba(102, 187, 106, 0.2); /* Light primary shadow */
+
         }
+
+
 
         .form-actions {
+
             display: flex;
+
             justify-content: flex-end;
+
             gap: var(--spacing-xs);
+
             margin-top: var(--spacing);
+
         }
+
+
 
         .sheet-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-bottom: var(--spacing);
+
             flex-wrap: wrap;
+
             gap: var(--spacing-sm);
+
         }
+
+
 
         .sheet-controls {
+
             display: flex;
+
             gap: var(--spacing-xs);
+
             align-items: center;
+
             flex-wrap: wrap;
+
         }
+
+
 
         .sheet-controls input, .sheet-controls select {
-            padding: 8px 12px;
+
+            padding: 10px 14px;
+
             border: 1px solid var(--border);
+
             border-radius: var(--radius);
+
             font-size: 14px;
+
         }
+
+
 
         table {
+
             width: 100%;
+
             border-collapse: collapse;
+
             margin-bottom: var(--spacing);
+
             box-shadow: var(--card-shadow);
+
             border-radius: var(--radius);
+
             overflow: hidden;
+
         }
+
+
 
         th, td {
-            padding: 12px 15px;
+
+            padding: 16px 20px; /* Increased padding */
+
             text-align: left;
-            border-bottom: 1px solid var(--border);
+
+            border-bottom: 1px solid #f0f0f0; /* Lighter border */
+
         }
+
+
 
         th {
-            background-color: var(--primary);
+
+            background-color: var(--primary-dark);
+
             color: var(--secondary);
-            font-weight: 500;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            font-size: 14px;
+
         }
+
+
+
+        td {
+
+            font-size: 15px;
+
+            color: var(--text); /* Darker text color for readability */
+
+        }
+
+
+
+         tr:nth-child(even) {
+
+            background-color: #f9f9f9; /* Subtle stripe */
+
+        }
+
+
 
         tr:hover {
-            background-color: rgba(46, 125, 50, 0.03);
+
+            background-color: rgba(56, 139, 60, 0.05); /* Primary color with opacity on hover */
+
         }
+
+
+
+
 
         .hazir-cell {
+
             color: var(--hazir);
-            font-weight: 500;
+
+            font-weight: 600;
+
         }
+
+
 
         .gayib-cell {
-            color: var(--gayib);
-            font-weight: 500;
+
+            color: var(--danger);
+
+            font-weight: 600;
+
         }
 
-        .empty-state {
+
+
+          .empty-state {
+
             text-align: center;
+
             padding: var(--spacing);
+
             color: var(--text-light);
+
             background-color: var(--secondary);
+
             border-radius: var(--radius);
+
             box-shadow: var(--card-shadow);
+
         }
+
+
 
         .empty-state i {
-            font-size: 48px;
+
+            font-size: 70px; /* Larger icon */
+
             color: var(--primary-light);
-            margin-bottom: var(--spacing-xs);
+
+            margin-bottom: var(--spacing-sm);
+
         }
+
+
 
         .empty-state h3 {
-            font-size: 18px;
+
+            font-size: 22px; /* Larger heading */
+
             margin-bottom: var(--spacing-xs);
+
             color: var(--text);
+
         }
+
+
 
         .empty-state p {
-            font-size: 14px;
+
+            font-size: 16px; /* Larger paragraph */
+
         }
+
+
 
         .date-controls {
+
             display: flex;
+
             gap: var(--spacing-xs);
+
             align-items: center;
+
             background-color: var(--secondary);
-            padding: var(--spacing-xs);
+
+            padding: var(--spacing-xs) var(--spacing-sm);
+
             border-radius: var(--radius);
+
             box-shadow: var(--card-shadow);
+
             margin-bottom: var(--spacing);
+
         }
+
+
+
+        .confirmation-modal {
+
+            text-align: center;
+
+        }
+
+
+
+        .confirmation-modal .modal-content {
+
+            max-width: 450px;
+
+             padding: var(--spacing);
+
+        }
+
+
+
+        .confirmation-modal .modal-header h2 {
+
+             font-size: 22px;
+
+             color: var(--danger);
+
+             margin-bottom: var(--spacing-xs);
+
+        }
+
+
+
+        .confirmation-modal p {
+
+             font-size: 16px;
+
+             color: var(--text);
+
+             margin-bottom: var(--spacing-sm);
+
+        }
+
+
+
+        .confirmation-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: var(--spacing-sm);
+
+        }
+
+
+
+         .alert-message {
+
+            animation: fadeIn 0.3s ease, fadeOut 0.3s ease 3s;
+
+            background-color: var(--primary);
+
+            color: white;
+
+            padding: 14px 28px; /* Increased padding */
+
+            border-radius: var(--radius);
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+            z-index: 1001;
+
+            position: fixed;
+
+            bottom: 30px; /* Higher from bottom */
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 15px;
+
+        }
+
+
+
+        @keyframes fadeOut {
+
+            from { opacity: 1; }
+
+            to { opacity: 0; }
+
+        }
+
+
+
+
 
         @media (max-width: 768px) {
+
             .container {
+
                 padding: var(--spacing-sm);
+
             }
+
+
+
+            h1 {
+
+                font-size: 28px;
+
+            }
+
+
+
+            .logo {
+
+                font-size: 26px;
+
+                gap: 8px;
+
+            }
+
+
+
+            .logo i {
+
+                font-size: 30px;
+
+            }
+
             
+
             .tabs {
-                flex-direction: column;
+
+                flex-direction: row;
+
+                overflow-x: auto;
+
+                -webkit-overflow-scrolling: touch;
+
+                padding-bottom: var(--spacing-xs);
+
+                 margin-bottom: var(--spacing-sm);
+
+                 border-radius: var(--radius); /* Ensure rounded corners */
+
             }
+
+
+
+             .tabs::-webkit-scrollbar {
+
+                display: none;
+
+            }
+
             
+
             .tab {
-                width: 100%;
-                text-align: left;
-                padding: var(--spacing-sm);
-            }
-            
-            .tab.active::after {
-                height: 100%;
-                width: 3px;
-                bottom: auto;
-                left: auto;
-                right: 0;
-            }
-            
-            .student-card {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--spacing-xs);
-            }
-            
-            .student-actions {
-                width: 100%;
-                margin-top: var(--spacing-xs);
-                justify-content: space-between;
-            }
-            
-            .sheet-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--spacing-sm);
-            }
-            
-            .sheet-controls {
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            th, td {
-                padding: 8px 10px;
+
+                flex-shrink: 0;
+
+                width: auto;
+
+                text-align: center;
+
+                padding: var(--spacing-sm) var(--spacing-xs);
+
                 font-size: 14px;
+
             }
+
+            
+
+            .tab.active::after {
+
+                height: 3px;
+
+                width: 100%;
+
+                bottom: 0;
+
+                left: 0;
+
+                right: auto;
+
+            }
+
+            
+
+            .student-card {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: var(--spacing-sm);
+
+                padding: var(--spacing-sm);
+
+            }
+
+            
+
+            .student-actions {
+
+                width: 100%;
+
+                margin-top: 0;
+
+                justify-content: flex-start;
+
+                flex-wrap: wrap;
+
+            }
+
+
+
+            .student-edit-actions {
+
+                position: static;
+
+                opacity: 1;
+
+                background-color: transparent;
+
+                box-shadow: none;
+
+                padding: 0;
+
+                margin-bottom: var(--spacing-xs);
+
+            }
+
+            
+
+            .section-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: var(--spacing-sm);
+
+            }
+
+
+
+            .section-title {
+
+                font-size: 22px;
+
+            }
+
+            
+
+            .sheet-controls {
+
+                width: 100%;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+            
+
+            .btn {
+
+                width: auto;
+
+                justify-content: center;
+
+                padding: 10px 16px;
+
+                font-size: 14px;
+
+            }
+
+
+
+             .course-actions {
+
+                top: 8px;
+
+                right: 8px;
+
+                gap: 6px;
+
+             }
+
+
+
+             .course-actions .btn {
+
+                padding: 6px 10px;
+
+                font-size: 11px;
+
+             }
+
+
+
+             .student-edit-actions .btn {
+
+                padding: 5px 8px;
+
+                font-size: 11px;
+
+             }
+
+            
+
+            th, td {
+
+                padding: 12px 15px;
+
+                font-size: 13px;
+
+            }
+
+
+
+             .modal-content {
+
+                padding: var(--spacing-sm);
+
+             }
+
+
+
+             .modal-header h2 {
+
+                font-size: 20px;
+
+             }
+
+
+
+             .close-btn {
+
+                font-size: 24px;
+
+             }
+
+
+
+             .form-group label {
+
+                font-size: 13px;
+
+             }
+
+
+
+             .form-group input, .form-group select {
+
+                padding: 10px 12px;
+
+                font-size: 14px;
+
+             }
+
+
+
+             .empty-state i {
+
+                font-size: 50px;
+
+             }
+
+
+
+             .empty-state h3 {
+
+                font-size: 18px;
+
+             }
+
+
+
+             .empty-state p {
+
+                font-size: 14px;
+
+             }
+
         }
 
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--secondary);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
     </style>
-    <!-- PWA Configuration -->
-<meta name="theme-color" content="#4caf50">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
 </head>
+
 <body>
+
     <div class="container">
+
         <header>
+
             <div class="logo">
+
                 <i class="fas fa-mosque"></i>
+
                 <span>Madrasatulmadina Balighan</span>
+
             </div>
+
             <h1>Attendance Management System</h1>
+
         </header>
 
+
+
         <div class="tabs">
+
             <button class="tab active" data-tab="courses">
+
                 <i class="fas fa-book-open"></i> Courses
+
             </button>
+
             <button class="tab" data-tab="students">
+
                 <i class="fas fa-users"></i> Students
+
             </button>
+
             <button class="tab" data-tab="sheet">
+
                 <i class="fas fa-calendar-alt"></i> Sheet View
+
             </button>
+
         </div>
+
+
 
         <div id="courses" class="tab-content active">
+
             <div class="section-header">
+
                 <h2 class="section-title">All Courses</h2>
+
                 <button id="addCourseBtn" class="btn">
+
                     <i class="fas fa-plus"></i> Add Course
+
                 </button>
+
             </div>
+
             <div id="coursesList"></div>
+
         </div>
+
+
 
         <div id="students" class="tab-content">
+
             <div class="section-header">
+
                 <h2 id="selectedCourseName" class="section-title">Select a Course</h2>
+
                 <div class="date-controls">
+
                     <input type="date" id="attendanceDate">
+
                     <button id="todayBtn" class="btn btn-secondary">
+
                         <i class="fas fa-calendar-day"></i> Today
+
                     </button>
+
                     <button id="addStudentBtn" class="btn">
+
                         <i class="fas fa-user-plus"></i> Add Student
+
                     </button>
+
                 </div>
+
             </div>
+
             <div id="studentsList"></div>
+
         </div>
+
+
 
         <div id="sheet" class="tab-content">
+
             <div class="section-header">
+
                 <h2 class="section-title">Monthly Attendance Sheet</h2>
+
                 <div class="sheet-controls">
+
                     <select id="sheetCourseSelect"></select>
+
                     <input type="month" id="sheetMonth" value="2025-05">
+
                     <button id="downloadSheetBtn" class="btn">
+
                         <i class="fas fa-file-excel"></i> Export CSV
+
                     </button>
+
                 </div>
+
             </div>
+
             <div id="sheetTableContainer"></div>
+
         </div>
+
     </div>
 
-    <!-- Add Course Modal -->
+
+
     <div id="addCourseModal" class="modal">
+
         <div class="modal-content">
+
             <div class="modal-header">
+
                 <h2><i class="fas fa-book-open"></i> Add New Course</h2>
+
                 <button class="close-btn">&times;</button>
+
             </div>
+
             <form id="addCourseForm">
+
                 <div class="form-group">
+
                     <label for="courseName">Course Name</label>
+
                     <input type="text" id="courseName" required placeholder="e.g. Quran Memorization">
+
                 </div>
+
                 <div class="form-group">
+
                     <label for="teacherName">Teacher Name</label>
+
                     <input type="text" id="teacherName" required placeholder="e.g. Ustadh Ahmed">
+
                 </div>
+
                 <div class="form-group">
+
                     <label for="courseTime">Time Slot</label>
+
                     <input type="text" id="courseTime" placeholder="e.g. 7:00-8:30 PM" required>
+
                 </div>
+
                 <div class="form-actions">
+
                     <button type="button" class="btn btn-secondary close-modal">
+
                         <i class="fas fa-times"></i> Cancel
+
                     </button>
+
                     <button type="submit" class="btn">
+
                         <i class="fas fa-save"></i> Save Course
+
                     </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
 
-    <!-- Add Student Modal -->
-    <div id="addStudentModal" class="modal">
+
+
+    <div id="editCourseModal" class="modal">
+
         <div class="modal-content">
+
             <div class="modal-header">
-                <h2><i class="fas fa-user-plus"></i> Add New Student</h2>
+
+                <h2><i class="fas fa-edit"></i> Edit Course</h2>
+
                 <button class="close-btn">&times;</button>
+
             </div>
-            <form id="addStudentForm">
+
+            <form id="editCourseForm">
+
+                <input type="hidden" id="editCourseId">
+
                 <div class="form-group">
-                    <label for="studentName">Student Name</label>
-                    <input type="text" id="studentName" required placeholder="e.g. Muhammad Ali">
+
+                    <label for="editCourseName">Course Name</label>
+
+                    <input type="text" id="editCourseName" required placeholder="e.g. Quran Memorization">
+
                 </div>
+
                 <div class="form-group">
-                    <label for="studentPhone">Phone Number (optional)</label>
-                    <input type="tel" id="studentPhone" placeholder="e.g.1234567890">
-                    <small style="color: var(--text-light); font-size: 12px;">Enter Whatsapp number suggested</small>
+
+                    <label for="editTeacherName">Teacher Name</label>
+
+                    <input type="text" id="editTeacherName" required placeholder="e.g. Ustadh Ahmed">
+
                 </div>
+
+                <div class="form-group">
+
+                    <label for="editCourseTime">Time Slot</label>
+
+                    <input type="text" id="editCourseTime" placeholder="e.g. 7:00-8:30 PM" required>
+
+                </div>
+
                 <div class="form-actions">
+
                     <button type="button" class="btn btn-secondary close-modal">
+
                         <i class="fas fa-times"></i> Cancel
+
                     </button>
+
                     <button type="submit" class="btn">
-                        <i class="fas fa-save"></i> Save Student
+
+                        <i class="fas fa-save"></i> Update Course
+
                     </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
+
+
+
+    <div id="addStudentModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2><i class="fas fa-user-plus"></i> Add New Student</h2>
+
+                <button class="close-btn">&times;</button>
+
+            </div>
+
+            <form id="addStudentForm">
+
+                <div class="form-group">
+
+                    <label for="studentName">Student Name</label>
+
+                    <input type="text" id="studentName" required placeholder="e.g. Muhammad Ali">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="studentPhone">Phone Number (optional)</label>
+
+                    <input type="tel" id="studentPhone" placeholder="e.g.1234567890">
+
+                    <small style="color: var(--text-light); font-size: 12px;">Enter Whatsapp number suggested</small>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button type="button" class="btn btn-secondary close-modal">
+
+                        <i class="fas fa-times"></i> Cancel
+
+                    </button>
+
+                    <button type="submit" class="btn">
+
+                        <i class="fas fa-save"></i> Save Student
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="editStudentModal" class="modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2><i class="fas fa-user-edit"></i> Edit Student</h2>
+
+                <button class="close-btn">&times;</button>
+
+            </div>
+
+            <form id="editStudentForm">
+
+                <input type="hidden" id="editStudentId">
+
+                <div class="form-group">
+
+                    <label for="editStudentName">Student Name</label>
+
+                    <input type="text" id="editStudentName" required placeholder="e.g. Muhammad Ali">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="editStudentPhone">Phone Number (optional)</label>
+
+                    <input type="tel" id="editStudentPhone" placeholder="e.g.1234567890">
+
+                    <small style="color: var(--text-light); font-size: 12px;">Enter Whatsapp number suggested</small>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button type="button" class="btn btn-secondary close-modal">
+
+                        <i class="fas fa-times"></i> Cancel
+
+                    </button>
+
+                    <button type="submit" class="btn">
+
+                        <i class="fas fa-save"></i> Update Student
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="confirmationModal" class="modal confirmation-modal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2><i class="fas fa-exclamation-triangle"></i> Confirm Action</h2>
+
+                <button class="close-btn">&times;</button>
+
+            </div>
+
+            <p id="confirmationMessage">Are you sure you want to delete this item?</p>
+
+            <div class="confirmation-buttons">
+
+                <button id="confirmCancel" class="btn btn-secondary">
+
+                    <i class="fas fa-times"></i> Cancel
+
+                </button>
+
+                <button id="confirmAction" class="btn btn-danger">
+
+                    <i class="fas fa-trash"></i> Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
 
     <script>
 
-        // Add this at the end of your existing script, before the closing 
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('ServiceWorker registration successful');
-      })
-      .catch(err => {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-  });
-}
-// PWA Installation Prompt
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later
-  deferredPrompt = e;
-  // Show install button (you'll need to add this to your HTML)
-  const installButton = document.createElement('button');
-  installButton.id = 'install-button';
-  installButton.className = 'btn';
-  installButton.textContent = 'Install App';
-  installButton.style.margin = '10px';
-  document.querySelector('h1').insertAdjacentElement('afterend', installButton);
-  
-  installButton.addEventListener('click', () => {
-    // Show the install prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      } else {
-        console.log('User dismissed the install prompt');
-      }
-      deferredPrompt = null;
-    });
-  });
-});
-
-window.addEventListener('appinstalled', () => {
-  console.log('PWA was installed');
-  const installButton = document.getElementById('install-button');
-  if (installButton) {
-    installButton.style.display = 'none';
-  }
-});
         // Data structure
+
         let data = {
+
             courses: [],
+
             students: [],
+
             attendance: []
+
         };
 
+
+
         // DOM elements
+
         const tabs = document.querySelectorAll('.tab');
+
         const tabContents = document.querySelectorAll('.tab-content');
+
         const coursesList = document.getElementById('coursesList');
+
         const studentsList = document.getElementById('studentsList');
+
         const selectedCourseName = document.getElementById('selectedCourseName');
+
         const attendanceDate = document.getElementById('attendanceDate');
+
         const todayBtn = document.getElementById('todayBtn');
+
         const sheetCourseSelect = document.getElementById('sheetCourseSelect');
+
         const sheetMonth = document.getElementById('sheetMonth');
+
         const sheetTableContainer = document.getElementById('sheetTableContainer');
+
         const downloadSheetBtn = document.getElementById('downloadSheetBtn');
 
+
+
         // Modal elements
+
         const addCourseModal = document.getElementById('addCourseModal');
+
+        const editCourseModal = document.getElementById('editCourseModal');
+
         const addStudentModal = document.getElementById('addStudentModal');
+
+        const editStudentModal = document.getElementById('editStudentModal');
+
+        const confirmationModal = document.getElementById('confirmationModal');
+
         const addCourseBtn = document.getElementById('addCourseBtn');
+
         const addStudentBtn = document.getElementById('addStudentBtn');
+
         const closeButtons = document.querySelectorAll('.close-btn, .close-modal');
+
         const addCourseForm = document.getElementById('addCourseForm');
+
+        const editCourseForm = document.getElementById('editCourseForm');
+
         const addStudentForm = document.getElementById('addStudentForm');
 
+        const editStudentForm = document.getElementById('editStudentForm');
+
+        const confirmCancel = document.getElementById('confirmCancel');
+
+        const confirmAction = document.getElementById('confirmAction');
+
+        const confirmationMessage = document.getElementById('confirmationMessage');
+
+
+
         // Current state
+
         let currentCourseId = null;
+
         let currentDate = new Date().toISOString().split('T')[0];
 
+        let itemToDelete = null;
+
+        let deleteAttempts = 0;
+
+
+
         // Initialize the app
+
         function init() {
+
             loadData();
+
             setupEventListeners();
+
             renderCourses();
+
             setCurrentDate();
+
         }
+
+
 
         // Load data from localStorage or initialize with sample data
+
         function loadData() {
+
             const savedData = localStorage.getItem('attendanceData');
+
             if (savedData) {
+
                 data = JSON.parse(savedData);
+
             } else {
+
                 // Initialize with sample data
+
                 data = {
+
                     courses: [
+
                         { id: '1', name: 'Madani Qaidah Memorization', teacher: 'Ustadh Ubaid Attari', time: '7:00-8:00 PM' }
-                    
+
                     ],
+
                     students: [
+
                         { id: '1', courseId: '1', name: 'Tauheed Ansari', phone: '+918881295964' }
-                        
+
                     ],
+
                     attendance: [
-                        { studentId: '1', date: '2025-05-17', status: 'Hazir' },
-                        { studentId: '2', date: '2025-05-17', status: 'Gayib' },
-                        { studentId: '3', date: '2025-05-17', status: 'Hazir' }
+
+                        { studentId: '1', date: '2025-05-17', status: 'Hazir' }
+
                     ]
+
                 };
+
                 saveData();
+
             }
+
         }
+
+
 
         // Save data to localStorage
+
         function saveData() {
+
             localStorage.setItem('attendanceData', JSON.stringify(data));
+
         }
+
+
 
         // Set up event listeners
+
         function setupEventListeners() {
+
             // Tab navigation
+
             tabs.forEach(tab => {
+
                 tab.addEventListener('click', () => {
+
                     tabs.forEach(t => t.classList.remove('active'));
+
                     tabContents.forEach(c => c.classList.remove('active'));
-                    
+
+
+
                     tab.classList.add('active');
+
                     document.getElementById(tab.dataset.tab).classList.add('active');
-                    
+
+
+
                     if (tab.dataset.tab === 'students' && currentCourseId) {
+
                         renderStudents();
+
                     } else if (tab.dataset.tab === 'sheet') {
+
                         renderSheetView();
+
                     }
+
                 });
+
             });
+
+
 
             // Date picker
+
             attendanceDate.addEventListener('change', (e) => {
+
                 currentDate = e.target.value;
+
                 renderStudents();
+
             });
 
-            // Today button
+// Today button
+
             todayBtn.addEventListener('click', () => {
+
                 setCurrentDate();
+
                 renderStudents();
+
             });
+
+
 
             // Add course button
+
             addCourseBtn.addEventListener('click', () => {
+
                 addCourseModal.style.display = 'flex';
+
                 document.getElementById('courseName').focus();
+
             });
+
+
 
             // Add student button
+
             addStudentBtn.addEventListener('click', () => {
+
                 if (!currentCourseId) {
+
                     showAlert('Please select a course first');
+
                     return;
+
                 }
+
                 addStudentModal.style.display = 'flex';
+
                 document.getElementById('studentName').focus();
+
             });
+
+
 
             // Close modals
+
             closeButtons.forEach(btn => {
+
                 btn.addEventListener('click', () => {
+
                     addCourseModal.style.display = 'none';
+
+                    editCourseModal.style.display = 'none';
+
                     addStudentModal.style.display = 'none';
+
+                    editStudentModal.style.display = 'none';
+
+                    confirmationModal.style.display = 'none';
+
+                    deleteAttempts = 0; // Reset delete attempts on close
+
                 });
+
             });
+
+
 
             // Add course form
+
             addCourseForm.addEventListener('submit', (e) => {
+
                 e.preventDefault();
+
                 const courseName = document.getElementById('courseName').value.trim();
+
                 const teacherName = document.getElementById('teacherName').value.trim();
+
                 const courseTime = document.getElementById('courseTime').value.trim();
-                
+
+
+
                 const newCourse = {
+
                     id: Date.now().toString(),
+
                     name: courseName,
+
                     teacher: teacherName,
+
                     time: courseTime
+
                 };
-                
+
+
+
                 data.courses.push(newCourse);
+
                 saveData();
+
                 renderCourses();
+
                 addCourseModal.style.display = 'none';
+
                 addCourseForm.reset();
+
                 showAlert('Course added successfully!');
+
             });
+
+
+
+            // Edit course form
+
+            editCourseForm.addEventListener('submit', (e) => {
+
+                e.preventDefault();
+
+                const courseId = document.getElementById('editCourseId').value;
+
+                const courseName = document.getElementById('editCourseName').value.trim();
+
+                const teacherName = document.getElementById('editTeacherName').value.trim();
+
+                const courseTime = document.getElementById('editCourseTime').value.trim();
+
+
+
+                const courseIndex = data.courses.findIndex(c => c.id === courseId);
+
+                if (courseIndex !== -1) {
+
+                    data.courses[courseIndex] = {
+
+                        ...data.courses[courseIndex],
+
+                        name: courseName,
+
+                        teacher: teacherName,
+
+                        time: courseTime
+
+                    };
+
+
+
+                    saveData();
+
+                    renderCourses();
+
+                    editCourseModal.style.display = 'none';
+
+                    showAlert('Course updated successfully!');
+
+
+
+                    // Update current course name if it's the one being edited
+
+                    if (currentCourseId === courseId) {
+
+                        selectedCourseName.textContent = courseName;
+
+                    }
+
+                }
+
+            });
+
+
 
             // Add student form
+
             addStudentForm.addEventListener('submit', (e) => {
+
                 e.preventDefault();
+
                 const studentName = document.getElementById('studentName').value.trim();
+
                 let studentPhone = document.getElementById('studentPhone').value.trim();
-                
+
+
+
                 // Validate and format phone number
+
                 if (studentPhone) {
+
                     if (!studentPhone.startsWith('+')) {
+
+                         // Assuming a default country code if none is provided (e.g., +91 for India)
+
                         studentPhone = '+91' + studentPhone;
+
                     }
-                    
+
+
+
                     if (!isValidPhoneNumber(studentPhone)) {
+
                         showAlert('Please enter a valid phone number with country code (e.g. +911234567890)');
+
                         return;
+
                     }
+
                 }
-                
+
+
+
                 const newStudent = {
+
                     id: Date.now().toString(),
+
                     courseId: currentCourseId,
+
                     name: studentName,
+
                     phone: studentPhone || null
+
                 };
-                
+
+
+
                 data.students.push(newStudent);
+
                 saveData();
+
                 renderStudents();
+
                 addStudentModal.style.display = 'none';
+
                 addStudentForm.reset();
+
                 showAlert('Student added successfully!');
+
             });
+
+
+
+            // Edit student form
+
+            editStudentForm.addEventListener('submit', (e) => {
+
+                e.preventDefault();
+
+                const studentId = document.getElementById('editStudentId').value;
+
+                const studentName = document.getElementById('editStudentName').value.trim();
+
+                let studentPhone = document.getElementById('editStudentPhone').value.trim();
+
+
+
+                // Validate and format phone number
+
+                if (studentPhone) {
+
+                    if (!studentPhone.startsWith('+')) {
+
+                         // Assuming a default country code if none is provided
+
+                        studentPhone = '+91' + studentPhone;
+
+                    }
+
+
+
+                    if (!isValidPhoneNumber(studentPhone)) {
+
+                        showAlert('Please enter a valid phone number with country code (e.g. +911234567890)');
+
+                        return;
+
+                    }
+
+                }
+
+
+
+                const studentIndex = data.students.findIndex(s => s.id === studentId);
+
+                if (studentIndex !== -1) {
+
+                    data.students[studentIndex] = {
+
+                        ...data.students[studentIndex],
+
+                        name: studentName,
+
+                        phone: studentPhone || null
+
+                    };
+
+
+
+                    saveData();
+
+                    renderStudents();
+
+                    editStudentModal.style.display = 'none';
+
+                    showAlert('Student updated successfully!');
+
+                }
+
+            });
+
+
 
             // Download sheet button
+
             downloadSheetBtn.addEventListener('click', () => {
+
                 downloadCSV();
+
             });
+
+
+
+            // Confirmation modal buttons
+
+            confirmCancel.addEventListener('click', () => {
+
+                confirmationModal.style.display = 'none';
+
+                deleteAttempts = 0;
+
+            });
+
+
+
+            confirmAction.addEventListener('click', () => {
+
+                if (deleteAttempts === 0) {
+
+                    // First attempt - show warning
+
+                    deleteAttempts++;
+
+                    confirmationMessage.innerHTML = `
+
+                        <strong>Warning!</strong> This action cannot be undone.<br>
+
+                        Are you absolutely sure you want to delete this item?
+
+                    `;
+
+                     confirmAction.innerHTML = `<i class="fas fa-check"></i> Confirm Delete`; // Change button text
+
+                } else {
+
+                    // Second attempt - proceed with deletion
+
+                    if (itemToDelete && itemToDelete.type === 'course') {
+
+                        deleteCourse(itemToDelete.id);
+
+                    } else if (itemToDelete && itemToDelete.type === 'student') {
+
+                        deleteStudent(itemToDelete.id);
+
+                    }
+
+                    confirmationModal.style.display = 'none';
+
+                    deleteAttempts = 0; // Reset attempts
+
+                     confirmAction.innerHTML = `<i class="fas fa-trash"></i> Delete`; // Reset button text
+
+                }
+
+            });
+
         }
+
+
 
         // Set current date in date picker
+
         function setCurrentDate() {
+
             currentDate = new Date().toISOString().split('T')[0];
+
             attendanceDate.value = currentDate;
+
         }
 
-        // Validate phone number
+
+
+        // Validate phone number (basic validation)
+
         function isValidPhoneNumber(phone) {
+
+            // Regex for +countrycode followed by 10-15 digits
+
             const regex = /^\+\d{10,15}$/;
+
             return regex.test(phone);
+
         }
+
+
 
         // Show alert message
+
         function showAlert(message) {
+
             const alert = document.createElement('div');
+
             alert.className = 'alert-message';
+
             alert.textContent = message;
-            alert.style.position = 'fixed';
-            alert.style.bottom = '20px';
-            alert.style.left = '50%';
-            alert.style.transform = 'translateX(-50%)';
-            alert.style.backgroundColor = 'var(--primary)';
-            alert.style.color = 'white';
-            alert.style.padding = '12px 24px';
-            alert.style.borderRadius = 'var(--radius)';
-            alert.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-            alert.style.zIndex = '1001';
-            alert.style.animation = 'fadeIn 0.3s ease';
-            
+
+
+
             document.body.appendChild(alert);
-            
+
+
+
+            // Animate fade in
+
             setTimeout(() => {
-                alert.style.animation = 'fadeOut 0.3s ease';
+
+                alert.style.opacity = '1';
+
+            }, 10); // Small delay to ensure display is set
+
+
+
+            // Animate fade out after 3 seconds
+
+            setTimeout(() => {
+
+                alert.style.opacity = '0';
+
                 setTimeout(() => {
+
                     document.body.removeChild(alert);
-                }, 300);
+
+                }, 300); // Wait for fade out transition to finish
+
             }, 3000);
+
         }
+
+
+
+
 
         // Render courses list
+
         function renderCourses() {
+
             coursesList.innerHTML = '';
-            
+
+
+
             if (data.courses.length === 0) {
+
                 coursesList.innerHTML = `
+
                     <div class="empty-state">
+
                         <i class="fas fa-book-open"></i>
+
                         <h3>No Courses Found</h3>
+
                         <p>Add your first course to get started</p>
+
                     </div>
+
                 `;
+
                 return;
+
             }
-            
+
+
+
             data.courses.forEach(course => {
+
                 const courseCard = document.createElement('div');
+
                 courseCard.className = 'card course-card';
+
                 courseCard.innerHTML = `
+
                     <h3>${course.name}</h3>
+
                     <p>${course.teacher} • ${course.time}</p>
+
+                    <div class="course-actions">
+
+                        <button class="btn btn-secondary edit-course" data-course-id="${course.id}" title="Edit Course">
+
+                            <i class="fas fa-edit"></i>
+
+                        </button>
+
+                        <button class="btn btn-danger delete-course" data-course-id="${course.id}" title="Delete Course">
+
+                            <i class="fas fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
                 `;
-                courseCard.addEventListener('click', () => {
+
+                courseCard.addEventListener('click', (e) => {
+
+                    // Don't navigate if clicking on action buttons
+
+                    if (e.target.closest('.course-actions')) {
+
+                        return;
+
+                    }
+
                     currentCourseId = course.id;
+
                     selectedCourseName.textContent = course.name;
-                    document.querySelector('[data-tab="students"]').click();
-                    renderStudents();
+
+                    // Find the students tab and click it
+
+                    const studentsTab = document.querySelector('.tab[data-tab="students"]');
+
+                    if (studentsTab) {
+
+                        studentsTab.click();
+
+                    } else {
+
+                         renderStudents(); // Fallback if tab not found
+
+                    }
+
                 });
+
+
+
+                // Add event listeners for edit and delete buttons
+
+                const editBtn = courseCard.querySelector('.edit-course');
+
+                editBtn.addEventListener('click', (e) => {
+
+                    e.stopPropagation(); // Prevent card click event
+
+                    openEditCourseModal(course.id);
+
+                });
+
+
+
+                const deleteBtn = courseCard.querySelector('.delete-course');
+
+                deleteBtn.addEventListener('click', (e) => {
+
+                    e.stopPropagation(); // Prevent card click event
+
+                    showDeleteConfirmation('course', course.id, `Delete course "${course.name}"?`);
+
+                });
+
+
+
                 coursesList.appendChild(courseCard);
+
             });
+
         }
+
+
+
+        // Open edit course modal
+
+        function openEditCourseModal(courseId) {
+
+            const course = data.courses.find(c => c.id === courseId);
+
+            if (!course) return;
+
+
+
+            document.getElementById('editCourseId').value = course.id;
+
+            document.getElementById('editCourseName').value = course.name;
+
+            document.getElementById('editTeacherName').value = course.teacher;
+
+            document.getElementById('editCourseTime').value = course.time;
+
+
+
+            editCourseModal.style.display = 'flex';
+
+            document.getElementById('editCourseName').focus();
+
+        }
+
+
+
+        // Delete a course
+
+        function deleteCourse(courseId) {
+
+            // Find all students in this course
+
+            const studentsInCourse = data.students.filter(student => student.courseId === courseId);
+
+            const studentIdsInCourse = studentsInCourse.map(student => student.id);
+
+
+
+            // Delete all attendance records for these students
+
+            data.attendance = data.attendance.filter(record => !studentIdsInCourse.includes(record.studentId));
+
+
+
+            // Then delete all students in this course
+
+            data.students = data.students.filter(student => student.courseId !== courseId);
+
+
+
+            // Finally delete the course
+
+            data.courses = data.courses.filter(course => course.id !== courseId);
+
+
+
+            saveData();
+
+            renderCourses();
+
+
+
+            // If the deleted course was currently selected, reset the selection
+
+            if (currentCourseId === courseId) {
+
+                currentCourseId = null;
+
+                selectedCourseName.textContent = 'Select a Course'; // Reset title
+
+                 if (document.querySelector('[data-tab="students"]').classList.contains('active')) {
+
+                    renderStudents(); // Re-render students tab if active
+
+                }
+
+            }
+
+
+
+            showAlert('Course and all associated students deleted successfully!');
+
+        }
+
+
 
         // Render students list
+
         function renderStudents() {
+
             studentsList.innerHTML = '';
-            
+
+
+
             if (!currentCourseId) {
+
                 studentsList.innerHTML = `
+
                     <div class="empty-state">
+
                         <i class="fas fa-users"></i>
+
                         <h3>No Course Selected</h3>
+
                         <p>Please select a course from the Courses tab</p>
+
                     </div>
+
                 `;
+
+                // Disable add student button if no course is selected
+
+                addStudentBtn.disabled = true;
+
+                addStudentBtn.classList.add('btn-secondary'); // Optional: style disabled button
+
+                addStudentBtn.classList.remove('btn-primary');
+
                 return;
+
+            } else {
+
+                 // Enable add student button if a course is selected
+
+                addStudentBtn.disabled = false;
+
+                 addStudentBtn.classList.remove('btn-secondary');
+
+                addStudentBtn.classList.add('btn-primary');
+
             }
-            
+
+
+
+
+
             const course = data.courses.find(c => c.id === currentCourseId);
-            if (!course) return;
-            
-            const courseStudents = data.students.filter(student => student.courseId === currentCourseId);
-            
-            if (courseStudents.length === 0) {
-                studentsList.innerHTML = `
+
+            if (!course) {
+
+                 studentsList.innerHTML = `
+
                     <div class="empty-state">
-                        <i class="fas fa-user-graduate"></i>
-                        <h3>No Students Found</h3>
-                        <p>Add students to this course to track attendance</p>
+
+                        <i class="fas fa-users"></i>
+
+                        <h3>Course Not Found</h3>
+
+                        <p>The selected course could not be found.</p>
+
                     </div>
+
                 `;
-                return;
+
+                selectedCourseName.textContent = 'Error'; // Indicate error
+
+                addStudentBtn.disabled = true;
+
+                 addStudentBtn.classList.add('btn-secondary');
+
+                addStudentBtn.classList.remove('btn-primary');
+
+                 return;
+
             }
-            
-            courseStudents.forEach(student => {
-                const studentCard = document.createElement('div');
-                studentCard.className = 'card student-card';
-                
-                // Check if attendance is already marked for this date
-                const attendanceRecord = data.attendance.find(
-                    record => record.studentId === student.id && record.date === currentDate
-                );
-                
-                let statusHtml = '';
-                let contactHtml = '';
-                
-                if (attendanceRecord) {
-                    statusHtml = `
-                        <span class="attendance-status ${attendanceRecord.status.toLowerCase()}-status">
-                            <i class="fas fa-${attendanceRecord.status === 'Hazir' ? 'check' : 'times'}"></i> ${attendanceRecord.status} on ${formatDate(currentDate)}
-                        </span>
-                        <button class="btn btn-secondary edit-attendance" data-student-id="${student.id}">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                    `;
-                } else {
-                    statusHtml = `
-                        <button class="btn btn-hazir mark-attendance" data-student-id="${student.id}" data-status="Hazir">
-                            <i class="fas fa-check"></i> Hazir
-                        </button>
-                        <button class="btn btn-gayib mark-attendance" data-student-id="${student.id}" data-status="Gayib">
-                            <i class="fas fa-times"></i> Gayib
-                        </button>
-                    `;
-                }
-                
-                if (student.phone) {
-                    const message = encodeURIComponent(`${student.name} is ${attendanceRecord ? attendanceRecord.status : 'Hazir'} on ${formatDate(currentDate)} - ${course.name} - Madrasatulmadina Balighan Attendance `);
-                    contactHtml = `
-                        <div class="contact-icons">
-                            <a href="tel:${student.phone}" title="Call ${student.name}">
-                                <i class="fas fa-phone"></i>
-                            </a>
-                            <a href="https://wa.me/${student.phone}?text=${message}" target="_blank" title="Message ${student.name} on WhatsApp">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                        </div>
-                    `;
-                }
-                
-                studentCard.innerHTML = `
-                    <div class="student-info">
-                        <h4>${student.name}</h4>
-                        ${student.phone ? `<div class="student-phone">${student.phone}</div>` : ''}
+
+
+
+            selectedCourseName.textContent = course.name; // Ensure name is updated
+
+
+
+            const courseStudents = data.students.filter(student => student.courseId === currentCourseId);
+
+
+
+            if (courseStudents.length === 0) {
+
+                studentsList.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <i class="fas fa-user-graduate"></i>
+
+                        <h3>No Students Found</h3>
+
+                        <p>Add students to this course to track attendance</p>
+
                     </div>
-                    <div class="student-actions">
-                        ${statusHtml}
-                        ${contactHtml}
-                    </div>
+
                 `;
-                
+
+                return;
+
+            }
+
+
+
+            courseStudents.forEach(student => {
+
+                const studentCard = document.createElement('div');
+
+                studentCard.className = 'card student-card';
+
+
+
+                // Check if attendance is already marked for this date
+
+                const attendanceRecord = data.attendance.find(
+
+                    record => record.studentId === student.id && record.date === currentDate
+
+                );
+
+
+
+                let statusHtml = '';
+
+                let contactHtml = '';
+
+
+
+                if (attendanceRecord) {
+
+                    // If attendance is marked, show status and buttons to change or clear
+
+                    statusHtml = `
+
+                        <span class="attendance-status ${attendanceRecord.status.toLowerCase()}-status">
+
+                            <i class="fas fa-${attendanceRecord.status === 'Hazir' ? 'check' : 'times'}"></i> ${attendanceRecord.status}
+
+                        </span>
+
+                         <button class="btn btn-secondary update-attendance" data-student-id="${student.id}" data-status="${attendanceRecord.status === 'Hazir' ? 'Gayib' : 'Hazir'}" title="Toggle Status">
+
+                             <i class="fas fa-sync-alt"></i> Change
+
+                         </button>
+
+                         <button class="btn btn-secondary remove-attendance" data-student-id="${student.id}" title="Clear Attendance">
+
+                             <i class="fas fa-redo"></i> Clear
+
+                         </button>
+
+                    `;
+
+                } else {
+
+                    // If attendance is not marked, show buttons to mark Hazir or Gayib
+
+                    statusHtml = `
+
+                        <button class="btn btn-hazir mark-attendance" data-student-id="${student.id}" data-status="Hazir">
+
+                            <i class="fas fa-check"></i> Hazir
+
+                        </button>
+
+                        <button class="btn btn-gayib mark-attendance" data-student-id="${student.id}" data-status="Gayib">
+
+                            <i class="fas fa-times"></i> Gayib
+
+                        </button>
+
+                    `;
+
+                }
+
+
+
+                if (student.phone) {
+
+                    const message = encodeURIComponent(`Assalamu Alaikum. Regarding ${student.name}'s attendance on ${formatDate(currentDate)} for ${course.name}. Status: ${attendanceRecord ? attendanceRecord.status : 'Not Marked'}. Madrasatulmadina Balighan Attendance System.`);
+
+                    contactHtml = `
+
+                        <div class="contact-icons">
+
+                            <a href="tel:${student.phone}" title="Call ${student.name}">
+
+                                <i class="fas fa-phone"></i>
+
+                            </a>
+
+                            <a href="https://wa.me/${student.phone}?text=${message}" target="_blank" title="Message ${student.name} on WhatsApp">
+
+                                <i class="fab fa-whatsapp"></i>
+
+                            </a>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+
+            studentCard.innerHTML = `
+
+                    <div class="student-edit-actions">
+
+                        <button class="btn btn-secondary edit-student" data-student-id="${student.id}" title="Edit Student">
+
+                            <i class="fas fa-edit"></i>
+
+                        </button>
+
+                        <button class="btn btn-danger delete-student" data-student-id="${student.id}" title="Delete Student">
+
+                            <i class="fas fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                    <div class="student-info">
+
+                        <h4>${student.name}</h4>
+
+                        ${student.phone ? `<div class="student-phone">${student.phone}</div>` : ''}
+
+                    </div>
+
+                    <div class="student-actions">
+
+                        ${statusHtml}
+
+                        ${contactHtml}
+
+                    </div>
+
+                `;
+
+
+
                 studentsList.appendChild(studentCard);
+
+
+
+                // Add event listeners for edit and delete buttons
+
+                const editBtn = studentCard.querySelector('.edit-student');
+
+                if (editBtn) { // Check if button exists
+
+                    editBtn.addEventListener('click', (e) => {
+
+                        e.stopPropagation(); // Prevent card click event
+
+                        openEditStudentModal(student.id);
+
+                    });
+
+                }
+
+
+
+                const deleteBtn = studentCard.querySelector('.delete-student');
+
+                 if (deleteBtn) { // Check if button exists
+
+                    deleteBtn.addEventListener('click', (e) => {
+
+                        e.stopPropagation(); // Prevent card click event
+
+                        showDeleteConfirmation('student', student.id, `Delete student "${student.name}"?`);
+
+                    });
+
+                 }
+
             });
-            
-            // Add event listeners for attendance buttons
-            document.querySelectorAll('.mark-attendance').forEach(btn => {
+
+
+
+            // Add event listeners for attendance buttons (using event delegation)
+
+            studentsList.querySelectorAll('.mark-attendance').forEach(btn => {
+
                 btn.addEventListener('click', (e) => {
+
                     const studentId = e.currentTarget.dataset.studentId;
+
                     const status = e.currentTarget.dataset.status;
+
                     markAttendance(studentId, status);
+
                 });
+
             });
-            
-            document.querySelectorAll('.edit-attendance').forEach(btn => {
+
+
+
+             studentsList.querySelectorAll('.update-attendance').forEach(btn => {
+
                 btn.addEventListener('click', (e) => {
+
                     const studentId = e.currentTarget.dataset.studentId;
-                    removeAttendance(studentId);
+
+                    const status = e.currentTarget.dataset.status;
+
+                    markAttendance(studentId, status); // Use markAttendance to update or add
+
                 });
+
             });
+
+
+
+            studentsList.querySelectorAll('.remove-attendance').forEach(btn => {
+
+                btn.addEventListener('click', (e) => {
+
+                    const studentId = e.currentTarget.dataset.studentId;
+
+                    removeAttendance(studentId);
+
+                });
+
+            });
+
         }
+
+
+
+
+
+        // Open edit student modal
+
+        function openEditStudentModal(studentId) {
+
+            const student = data.students.find(s => s.id === studentId);
+
+            if (!student) return;
+
+
+
+            document.getElementById('editStudentId').value = student.id;
+
+            document.getElementById('editStudentName').value = student.name;
+
+            document.getElementById('editStudentPhone').value = student.phone || '';
+
+
+
+            editStudentModal.style.display = 'flex';
+
+            document.getElementById('editStudentName').focus();
+
+        }
+
+
+
+        // Delete a student
+
+        function deleteStudent(studentId) {
+
+            // First delete all attendance records for this student
+
+            data.attendance = data.attendance.filter(record => record.studentId !== studentId);
+
+
+
+            // Then delete the student
+
+            data.students = data.students.filter(student => student.id !== studentId);
+
+
+
+            saveData();
+
+            renderStudents();
+
+            showAlert('Student and all attendance records deleted successfully!');
+
+        }
+
+
+
+        // Show delete confirmation dialog
+
+        function showDeleteConfirmation(type, id, message) {
+
+            itemToDelete = { type, id };
+
+            deleteAttempts = 0; // Reset attempts for a new confirmation
+
+            confirmationMessage.innerHTML = message;
+
+            // Reset the confirmation action button text
+
+             confirmAction.innerHTML = `<i class="fas fa-trash"></i> Delete`;
+
+            confirmationModal.style.display = 'flex';
+
+        }
+
+
 
         // Format date for display
+
         function formatDate(dateStr) {
+
             const date = new Date(dateStr);
-            return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+            // Use UTC methods to avoid timezone issues with date strings
+
+            const options = { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' };
+
+            return date.toLocaleDateString('en-US', options);
+
         }
+
+
+
+
 
         // Mark attendance for a student
+
         function markAttendance(studentId, status) {
+
             // Remove any existing attendance for this student on this date
+
             data.attendance = data.attendance.filter(
+
                 record => !(record.studentId === studentId && record.date === currentDate)
+
             );
-            
+
+
+
             // Add new attendance record
+
             data.attendance.push({
+
                 studentId,
+
                 date: currentDate,
+
                 status
+
             });
-            
+
+
+
             saveData();
-            renderStudents();
+
+            renderStudents(); // Re-render to show updated status
+
         }
+
+
 
         // Remove attendance for a student
+
         function removeAttendance(studentId) {
+
             data.attendance = data.attendance.filter(
+
                 record => !(record.studentId === studentId && record.date === currentDate)
+
             );
-            
+
+
+
             saveData();
-            renderStudents();
+
+            renderStudents(); // Re-render to show updated status
+
         }
+
+
 
         // Render sheet view
+
         function renderSheetView() {
+
             // Populate course select
+
             sheetCourseSelect.innerHTML = '';
+
             data.courses.forEach(course => {
+
                 const option = document.createElement('option');
+
                 option.value = course.id;
+
                 option.textContent = course.name;
+
                 sheetCourseSelect.appendChild(option);
+
             });
-            
+
+
+
             if (data.courses.length > 0) {
-                if (!currentCourseId) {
-                    currentCourseId = data.courses[0].id;
-                }
+
+                 // If currentCourseId is not set or no longer exists, default to the first course
+
+                 if (!currentCourseId || !data.courses.find(c => c.id === currentCourseId)) {
+
+                     currentCourseId = data.courses[0].id;
+
+                 }
+
                 sheetCourseSelect.value = currentCourseId;
+
+            } else {
+
+                 currentCourseId = null; // No courses available
+
             }
-            
+
+
+
+
+
             // Render table
+
             updateSheetTable();
-            
-            // Add event listeners
-            sheetCourseSelect.addEventListener('change', (e) => {
-                currentCourseId = e.target.value;
-                updateSheetTable();
-            });
-            
-            sheetMonth.addEventListener('change', updateSheetTable);
+
+
+
+            // Remove previous event listeners to prevent duplicates
+
+            sheetCourseSelect.removeEventListener('change', handleSheetChange);
+
+            sheetMonth.removeEventListener('change', handleSheetChange);
+
+
+
+            // Add new event listeners
+
+            sheetCourseSelect.addEventListener('change', handleSheetChange);
+
+            sheetMonth.addEventListener('change', handleSheetChange);
+
         }
+
+
+
+        // Handle changes in sheet course or month
+
+        function handleSheetChange(e) {
+
+             if (e.target.id === 'sheetCourseSelect') {
+
+                 currentCourseId = e.target.value;
+
+             }
+
+             updateSheetTable();
+
+        }
+
+
+
+
 
         // Update sheet table based on selected course and month
+
         function updateSheetTable() {
+
             if (!currentCourseId) {
+
                 sheetTableContainer.innerHTML = `
+
                     <div class="empty-state">
+
                         <i class="fas fa-book"></i>
+
                         <h3>No Course Selected</h3>
+
                         <p>Please select a course to view attendance</p>
+
                     </div>
+
                 `;
+
+                 downloadSheetBtn.disabled = true; // Disable download if no course
+
+                 downloadSheetBtn.classList.add('btn-secondary');
+
+                 downloadSheetBtn.classList.remove('btn-primary');
+
                 return;
+
+            } else {
+
+                 downloadSheetBtn.disabled = false; // Enable download if course selected
+
+                 downloadSheetBtn.classList.remove('btn-secondary');
+
+                downloadSheetBtn.classList.add('btn-primary');
+
             }
-            
+
+
+
             const selectedMonth = sheetMonth.value;
+
             const [year, month] = selectedMonth.split('-');
-            
+
+
+
             // Get all dates in the selected month
+
             const daysInMonth = new Date(year, month, 0).getDate();
+
             const datesInMonth = [];
+
             for (let day = 1; day <= daysInMonth; day++) {
+
                 const dateStr = `${year}-${month.padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
                 datesInMonth.push(dateStr);
+
             }
-            
+
+
+
             // Get students in the selected course
+
             const courseStudents = data.students.filter(student => student.courseId === currentCourseId);
-            
+
+
+
             if (courseStudents.length === 0) {
+
                 sheetTableContainer.innerHTML = `
+
                     <div class="empty-state">
+
                         <i class="fas fa-user-graduate"></i>
+
                         <h3>No Students Found</h3>
+
                         <p>This course doesn't have any students yet</p>
+
                     </div>
+
                 `;
+
+                 downloadSheetBtn.disabled = true; // Disable download if no students
+
+                 downloadSheetBtn.classList.add('btn-secondary');
+
+                 downloadSheetBtn.classList.remove('btn-primary');
+
                 return;
+
             }
-            
+
+
+
             // Get course name
+
             const course = data.courses.find(c => c.id === currentCourseId);
+
             const courseName = course ? course.name : 'Course';
-            
+
+
+
             // Create table
+
             const table = document.createElement('table');
-            
+
+
+
             // Create header row
+
             const headerRow = document.createElement('tr');
+
             const studentHeader = document.createElement('th');
+
             studentHeader.textContent = 'Student';
+
             headerRow.appendChild(studentHeader);
-            
+
+
+
             datesInMonth.forEach(date => {
+
                 const dateHeader = document.createElement('th');
+
                 const dateObj = new Date(date);
-                dateHeader.textContent = dateObj.getDate();
-                dateHeader.title = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+                // Use UTC methods to avoid timezone issues with date strings
+
+                dateHeader.textContent = dateObj.getUTCDate();
+
+                dateHeader.title = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
                 headerRow.appendChild(dateHeader);
+
             });
-            
+
+
+
             // Add percentage column
+
             const percentageHeader = document.createElement('th');
+
             percentageHeader.textContent = 'Attendance %';
+
             headerRow.appendChild(percentageHeader);
-            
+
+
+
             table.appendChild(headerRow);
-            
+
+
+
             // Create rows for each student
+
             courseStudents.forEach(student => {
+
                 const row = document.createElement('tr');
-                
+
+
+
                 // Student name cell
+
                 const nameCell = document.createElement('td');
+
                 nameCell.textContent = student.name;
+
                 row.appendChild(nameCell);
-                
+
+
+
                 let presentDays = 0;
-                
+
+                let totalDaysWithRecord = 0;
+
+
+
                 // Attendance cells for each date
+
                 datesInMonth.forEach(date => {
+
                     const attendanceRecord = data.attendance.find(
+
                         record => record.studentId === student.id && record.date === date
+
                     );
-                    
+
+
+
                     const attendanceCell = document.createElement('td');
+
                     attendanceCell.className = attendanceRecord ? `${attendanceRecord.status.toLowerCase()}-cell` : '';
-                    attendanceCell.textContent = attendanceRecord ? attendanceRecord.status.charAt(0) : '';
-                    attendanceCell.title = attendanceRecord ? 
-                        `${attendanceRecord.status} on ${formatDate(date)}` : 
+
+                    attendanceCell.textContent = attendanceRecord ? attendanceRecord.status.charAt(0) : '-'; // Use '-' for no record
+
+                    attendanceCell.title = attendanceRecord ?
+
+                        `${attendanceRecord.status} on ${formatDate(date)}` :
+
                         `No record for ${formatDate(date)}`;
-                    
-                    if (attendanceRecord && attendanceRecord.status === 'Hazir') {
-                        presentDays++;
+
+
+
+                    if (attendanceRecord) {
+
+                         totalDaysWithRecord++;
+
+                        if (attendanceRecord.status === 'Hazir') {
+
+                            presentDays++;
+
+                        }
+
                     }
-                    
+
+
+
                     row.appendChild(attendanceCell);
+
                 });
-                
+
+
+
                 // Calculate attendance percentage
+
                 const percentageCell = document.createElement('td');
-                const attendancePercentage = Math.round((presentDays / datesInMonth.length) * 100);
+
+                const attendancePercentage = totalDaysWithRecord === 0 ? 0 : Math.round((presentDays / totalDaysWithRecord) * 100);
+
                 percentageCell.textContent = `${attendancePercentage}%`;
-                percentageCell.style.fontWeight = '500';
-                percentageCell.style.color = attendancePercentage >= 75 ? 'var(--hazir)' : 
-                                            attendancePercentage >= 50 ? 'var(--primary)' : 'var(--gayib)';
+
+                percentageCell.style.fontWeight = '600';
+
+                percentageCell.style.color = attendancePercentage >= 80 ? 'var(--hazir)' : // Higher threshold for green
+
+                                            attendancePercentage >= 60 ? 'var(--warning)' : 'var(--danger)'; // Warning for <80, Danger for <60
+
+
+
                 row.appendChild(percentageCell);
-                
+
+
+
                 table.appendChild(row);
+
             });
-            
+
+
+
             sheetTableContainer.innerHTML = '';
+
             sheetTableContainer.appendChild(table);
+
         }
+
+
+
+
 
         // Download CSV of attendance data
+
         function downloadCSV() {
+
             if (!currentCourseId) {
+
                 showAlert('Please select a course first');
+
                 return;
+
             }
-            
+
+
+
             const selectedMonth = sheetMonth.value;
+
             const [year, month] = selectedMonth.split('-');
-            
+
+
+
             // Get all dates in the selected month
+
             const daysInMonth = new Date(year, month, 0).getDate();
+
             const datesInMonth = [];
+
             for (let day = 1; day <= daysInMonth; day++) {
+
+                const dateObj = new Date(year, month - 1, day);
+
                 const dateStr = `${year}-${month.padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-                datesInMonth.push(dateStr);
+
+                 // Include weekday in header for clarity, use UTC methods
+
+                 const weekday = dateObj.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+
+                datesInMonth.push({ dateStr, display: `${day} (${weekday})` });
+
             }
-            
+
+
+
             // Get students in the selected course
+
             const courseStudents = data.students.filter(student => student.courseId === currentCourseId);
-            
+
+
+
             if (courseStudents.length === 0) {
+
                 showAlert('No students in this course');
+
                 return;
+
             }
-            
+
+
+
             // Get course name
+
             const course = data.courses.find(c => c.id === currentCourseId);
+
             const courseName = course ? course.name : 'Course';
-            
+
+
+
             // Create CSV content
-            let csvContent = 'Student Name,';
-            csvContent += datesInMonth.join(',') + ',Attendance %\n';
-            
+
+            let csvContent = '"Student Name",';
+
+            csvContent += datesInMonth.map(date => `"${date.display}"`).join(',') + ',"Attendance %"\n';
+
+
+
             courseStudents.forEach(student => {
+
                 csvContent += `"${student.name.replace(/"/g, '""')}",`;
-                
+
+
+
                 let presentDays = 0;
-                const attendanceCells = datesInMonth.map(date => {
+
+                let totalDaysWithRecord = 0;
+
+
+
+                const attendanceCells = datesInMonth.map(dateInfo => {
+
                     const attendanceRecord = data.attendance.find(
-                        record => record.studentId === student.id && record.date === date
+
+                        record => record.studentId === student.id && record.date === dateInfo.dateStr
+
                     );
-                    
-                    if (attendanceRecord && attendanceRecord.status === 'Hazir') {
-                        presentDays++;
+
+
+
+                     if (attendanceRecord) {
+
+                         totalDaysWithRecord++;
+
+                        if (attendanceRecord.status === 'Hazir') {
+
+                            presentDays++;
+
+                        }
+
+                        return `"${attendanceRecord.status}"`;
+
+                    } else {
+
+                        return '""'; // Empty cell for no record
+
                     }
-                    
-                    return attendanceRecord ? attendanceRecord.status : '';
+
                 });
-                
-                const attendancePercentage = Math.round((presentDays / datesInMonth.length) * 100);
-                
-                csvContent += attendanceCells.join(',') + `,${attendancePercentage}%\n`;
+
+
+
+                const attendancePercentage = totalDaysWithRecord === 0 ? 0 : Math.round((presentDays / totalDaysWithRecord) * 100);
+
+
+
+                csvContent += attendanceCells.join(',') + `,"${attendancePercentage}%"\n`;
+
             });
-            
+
+
+
             // Create download link
+
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
             const url = URL.createObjectURL(blob);
+
             const link = document.createElement('a');
+
             link.setAttribute('href', url);
-            link.setAttribute('download', `${courseName} Attendance ${selectedMonth}.csv`);
+
+            link.setAttribute('download', `${courseName}_Attendance_${selectedMonth}.csv`); // Filename with course name and month
+
             link.style.visibility = 'hidden';
+
             document.body.appendChild(link);
+
             link.click();
+
             document.body.removeChild(link);
+
+            URL.revokeObjectURL(url); // Clean up the URL object
+
         }
 
+
+
+
+
         // Initialize the app
+
         document.addEventListener('DOMContentLoaded', init);
+
     </script>
+
 </body>
+
 </html>
+
+
+
+            
